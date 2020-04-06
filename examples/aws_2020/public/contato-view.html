@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+</head>
+
+<body>
+    <div class=container>
+        <div id="app">
+            <h3>Contato</h3>
+            <div v-if="flag">
+                <p>{{contato.name}}</p>
+                <p>{{contato.nickName}}</p>
+                <p>{{contato.email}}</p>
+                <p>{{contato.phone}}</p>
+                <p>{{contato.dataAniv}}</p>
+                <input type="button" name="" @click="tooglePhoto" :value="photo_message" />
+                <p />
+                <p v-show="show_photo" ><img :src=contato.link ></p>
+
+                <a class="btn btn-primary" :href="'contato-edit.html?id='+contato._id">Editar</a>
+                <button class="btn btn-danger" type="button" @click="deleteContato">Excluir</button>
+            </div>
+
+        </div>
+
+        <script>
+            var app = new Vue({
+                el: "#app",
+                data: {
+                    url: "/api/contacts",
+                    contato: {},
+                    flag: false,
+                    show_photo: false, 
+                    photo_message : "Ver Foto",
+                    img: 'https://images.pexels.com/photos/580012/pexels-photo-580012.jpeg?h=650'
+                },
+                created() {
+                    var currentUrl = window.location.href;
+                    var id = new URL(currentUrl).searchParams.get("id");
+                    vm = this;
+                    axios.get(this.url + "/" + id).then(function (r) {
+                        vm.contato = r.data;
+                        vm.contato.link = vm.contato.photo;
+                        d = new Date(vm.contato.birthday);
+                        vm.contato.dataAniv = (d.getDate()+1)+"/"+(d.getMonth()+1)+"/"+ d.getFullYear(); 
+                        vm.flag = true;
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                },
+                methods: {
+                    deleteContato() {
+                        axios.delete(this.url + "/" + this.contato._id).then(function (r) {
+                            console.log(r);
+                            window.location.replace('index.html')
+                        }).catch(function (error) {
+                            console.log(error);
+                        });
+                    }, 
+                    tooglePhoto(){
+                        this.show_photo = !this.show_photo;
+                        if (this.show_photo){
+                            this.photo_message = "Esconder Foto"
+                        } else {
+                            this.photo_message = "Ver Foto"
+                        }
+
+                    }
+                }
+            });
+        </script>
+</body>
+
+</html>
