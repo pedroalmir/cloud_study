@@ -82,6 +82,7 @@ function fillDashboard(userLogged, userProfile, myprofile){
     var userTimelineHTML = '';
     
     if(userProfile.posts.length > 0){
+        userProfile.posts.sort((date1, date2) => date2 - date1);
         userProfile.posts.forEach(function(post, index){
             if(index % 2 == 0){
                 userTimelineHTML += postLeftTmp({
