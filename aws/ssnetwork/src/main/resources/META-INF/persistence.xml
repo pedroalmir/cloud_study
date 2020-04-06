@@ -8,10 +8,10 @@
     <persistence-unit name="development">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <properties>
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost/ssnetwork_db?useTimezone=true&amp;serverTimezone=UTC" />
+            <property name="hibernate.connection.url" value="jdbc:mysql://<DATABASE-URL>/ssnetwork_db?useTimezone=true&amp;serverTimezone=UTC" />
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-            <property name="hibernate.connection.username" value="root" />
-            <property name="hibernate.connection.password" value="pedroalmir" />
+            <property name="hibernate.connection.username" value="" />
+            <property name="hibernate.connection.password" value="" />
             <property name="hibernate.archive.autodetection" value="class" />
             <property name="hibernate.show_sql" value="false" />
             <property name="hibernate.format_sql" value="false" />
@@ -21,5 +21,19 @@
         </properties>
     </persistence-unit>
     
-   
+    <persistence-unit name="production">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <properties>
+            <property name="hibernate.connection.url" value="jdbc:mysql://<DATABASE-URL>/ssnetwork_db?useTimezone=true&amp;serverTimezone=UTC" />
+            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
+            <property name="hibernate.connection.username" value="" />
+            <property name="hibernate.connection.password" value="" />
+            <property name="hibernate.archive.autodetection" value="class" />
+            <property name="hibernate.show_sql" value="false" />
+            <property name="hibernate.format_sql" value="false" />
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+            <property name="hibernate.jdbc.time_zone" value="UTC"/>
+        </properties>
+    </persistence-unit>
 </persistence>
