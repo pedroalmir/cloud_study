@@ -160,7 +160,7 @@ function registerController(){
     addEvent(route, '#submitBTN', 'click', registerUserSubmitBtnEvent);
     addEvent(route, '', 'now', loginAndRegisterBodyAdjust);
     
-    loadTemplate(route);
+    loadTemplate('register');
 };
 
 /** #submitBTN event */
