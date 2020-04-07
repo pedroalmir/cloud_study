@@ -2,7 +2,6 @@ var wait = false;
 var BACKEND_URL = "http://ec2-18-229-202-214.sa-east-1.compute.amazonaws.com/";
 
 var eventRegister = {
-    'register': [],
 };
 
 function clearEventRegister(route){
@@ -112,11 +111,6 @@ function loginController(){
     });
     addEvent(route, '', 'now', loginAndRegisterBodyAdjust);
     addEvent(route, '', 'now', function(){$('.modal-backdrop').remove()});
-    addEvent(route, '', 'now', function(){
-        $('#registerBTN').on('click', function(){
-            redirectTo('register');
-        })
-    });
     loadTemplate('login');
 };
 
@@ -160,11 +154,13 @@ function loginBtnEvent(event){
 
 /** Register controller */
 function registerController(){
-    clearEventRegister('register');
-    addEvent('register', '#submitBTN', 'click', registerUserSubmitBtnEvent);
-    addEvent('register', '', 'now', loginAndRegisterBodyAdjust);
+    var route = router._lastRouteResolved.url;
+
+    clearEventRegister(route);
+    addEvent(route, '#submitBTN', 'click', registerUserSubmitBtnEvent);
+    addEvent(route, '', 'now', loginAndRegisterBodyAdjust);
     
-    loadTemplate('register');
+    loadTemplate(route);
 };
 
 /** #submitBTN event */
