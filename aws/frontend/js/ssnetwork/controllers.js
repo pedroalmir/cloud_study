@@ -112,6 +112,11 @@ function loginController(){
     });
     addEvent(route, '', 'now', loginAndRegisterBodyAdjust);
     addEvent(route, '', 'now', function(){$('.modal-backdrop').remove()});
+    addEvent(route, '', 'now', function(){
+        $('#registerBTN').on('click', function(){
+            redirectTo('register');
+        })
+    });
     loadTemplate('login');
 };
 
