@@ -15,6 +15,4 @@ Restrictions:
 
 Part 2: From the application developed in Part 1, use the LoadBalancing and Auto Scaling Services to make the application elastic.
 
-App Link: [http://ssnetwork.pedroalmir.com/aws/frontend](http://ssnetwork.pedroalmir.com/aws/frontend)
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+App Link: [http://ssnetwork.pedroalmir.com/aws/frontend](http://ssnetwork.pedroalmir.com/aws/frontend
