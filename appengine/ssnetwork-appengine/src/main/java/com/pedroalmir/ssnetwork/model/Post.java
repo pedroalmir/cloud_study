@@ -16,6 +16,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import com.google.gson.annotations.Expose;
+import com.pedroalmir.ssnetwork.util.DateUtil;
 
 /**
  * @author Pedro Almir
@@ -33,7 +34,6 @@ public class Post implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Expose (serialize = true, deserialize = true)
 	private Long id;
-	
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Expose (serialize = true, deserialize = true)
@@ -81,7 +81,7 @@ public class Post implements Serializable{
 	 * @param imagePath
 	 */
 	public Post(String message, String imagePath) {
-		this.date = new Date();
+		this.date = DateUtil.newDateInSaoPaulo();
 		this.message = message;
 		this.imagePath = imagePath;
 	}

@@ -44,10 +44,10 @@ public class MyCloudStorageService {
 					.setMd5(md5)
 					.build();
 			
-			Blob created = storage.create(blobInfo, content);
+			storage.create(blobInfo, content);
 			storage.createAcl(blobId, Acl.of(Acl.User.ofAllUsers(), Acl.Role.READER));
 			
-			return created.getMediaLink();
+			return AppEngineUtils.getBucketBaseURL() + fileKey;
 			
 		} catch (IOException e) {
 			e.printStackTrace();

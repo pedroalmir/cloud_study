@@ -573,9 +573,9 @@ function updateProfileBtnEvent(event){
     data.append('email', getLoggedUser().email);
 
     $.ajax({
-        type:        "PUT",
+        type:        "POST",
         enctype:     "multipart/form-data",
-        url:         BACKEND_URL + "/user",
+        url:         BACKEND_URL + "/user/update",
         data:        data,
         processData: false,
         contentType: false,

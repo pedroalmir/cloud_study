@@ -21,6 +21,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import com.google.gson.annotations.Expose;
+import com.pedroalmir.ssnetwork.util.DateUtil;
 
 /**
  * @author Pedro Almir
@@ -72,7 +73,7 @@ public class User implements Serializable {
 	/** Default constructor */
 	public User() {
 		this.posts = new ArrayList<>();
-		this.registrationDate = new Date();
+		this.registrationDate = DateUtil.newDateInSaoPaulo();
 	}
 	
 	/**
@@ -93,7 +94,7 @@ public class User implements Serializable {
 		this.password = password;
 		this.profileImg = profileImg;
 		this.posts = posts;
-		this.registrationDate = new Date();
+		this.registrationDate = DateUtil.newDateInSaoPaulo();
 	}
 
 	/**
@@ -109,7 +110,7 @@ public class User implements Serializable {
 		this.email = email;
 		this.password = password;
 		this.posts = new ArrayList<>();
-		this.registrationDate = new Date();
+		this.registrationDate = DateUtil.newDateInSaoPaulo();
 	}
 	
 	/**
@@ -126,7 +127,7 @@ public class User implements Serializable {
 		this.password = password;
 		this.profileImg = profileImg;
 		this.posts = new ArrayList<>();
-		this.registrationDate = new Date();
+		this.registrationDate = DateUtil.newDateInSaoPaulo();
 	}
 
 	/**

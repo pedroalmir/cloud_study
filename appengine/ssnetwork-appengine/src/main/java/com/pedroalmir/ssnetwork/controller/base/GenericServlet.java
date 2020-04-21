@@ -36,7 +36,8 @@ public abstract class GenericServlet extends HttpServlet {
 	 * @throws IOException
 	 */
 	protected void sendResponse(HttpServletResponse response, Object result) throws IOException {
-		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+		Gson gson = new GsonBuilder()
+				.excludeFieldsWithoutExposeAnnotation().create();
 		
 		PrintWriter out = response.getWriter();
 		response.setHeader("Access-Control-Allow-Origin", "*");

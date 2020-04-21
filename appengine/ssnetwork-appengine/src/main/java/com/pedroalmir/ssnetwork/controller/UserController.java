@@ -27,6 +27,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.fileupload.util.Streams;
 import org.apache.commons.io.IOUtils;
 
+import com.google.appengine.api.utils.SystemProperty;
 import com.google.cloud.datastore.Entity;
 import com.pedroalmir.ssnetwork.controller.base.GenericServlet;
 import com.pedroalmir.ssnetwork.controller.result.MessageResult;
@@ -35,7 +36,7 @@ import com.pedroalmir.ssnetwork.dao.core.MyEntityManager;
 import com.pedroalmir.ssnetwork.model.Post;
 import com.pedroalmir.ssnetwork.model.User;
 import com.pedroalmir.ssnetwork.service.MyCloudDatastoreService;
-import com.pedroalmir.ssnetwork.service.MyCloudStorageService;
+import com.pedroalmir.ssnetwork.util.DateUtil;
 
 /**
  * @author Pedro Almir
@@ -58,7 +59,11 @@ public class UserController extends GenericServlet {
 	    	if(nickname != null && !nickname.isEmpty() & loggedUser != null && !loggedUser.isEmpty()) {
 	    		MyEntityManager.getManager().clear();
 	    		
-	    		MyCloudDatastoreService cloudDatastoreService = new MyCloudDatastoreService();
+	    		MyCloudDatastoreService cloudDatastoreService = null;
+	    		if (SystemProperty.environment.value() == SystemProperty.Environment.Value.Production) {
+	    			cloudDatastoreService = new MyCloudDatastoreService();
+	    		}
+	    		
 	    		UserDAO userDAO = new UserDAO();
 	    		User user = userDAO.findByNickname(nickname);
 	    		User lUser = userDAO.findByNickname(loggedUser);
@@ -67,7 +72,7 @@ public class UserController extends GenericServlet {
 	    		while (iterator.hasNext()) {
 					Post p = (Post) iterator.next();
 					
-					SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					SimpleDateFormat formatter = DateUtil.getDefaultFormatter();
 					if(begin != null && !begin.isEmpty() && end != null && !end.isEmpty()) {
 						Date startDate = formatter.parse(begin + " 00:00:00");
 						Date endDate = formatter.parse(end + " 23:59:00");
@@ -86,7 +91,7 @@ public class UserController extends GenericServlet {
 						}
 					}
 					
-					Integer likes = cloudDatastoreService.findPostLikes(p.getId());
+					Integer likes = (cloudDatastoreService != null) ? cloudDatastoreService.findPostLikes(p.getId()) : null;
 	    			if(likes != null) {
 	    				p.setLikes(likes);
 	    				if(lUser != null && !nickname.equals(loggedUser)) {
@@ -163,67 +168,6 @@ public class UserController extends GenericServlet {
         	return;
 		}
         sendResponse(response, MessageResult.createErrorMessage("user.register.error", null));
-	}
-	
-	@Override
-	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			request.setCharacterEncoding("UTF-8");
-			
-			if (!ServletFileUpload.isMultipartContent(request)) {
-				sendResponse(response, MessageResult.createErrorMessage("internal.error", null));
-				return;
-			}
-			
-			// Map values to create user
-			Map<String, Object> userMap = new LinkedHashMap<>();
-			
-			ServletFileUpload upload = new ServletFileUpload();
-			FileItemIterator iter = upload.getItemIterator(request);
-			
-			while (iter.hasNext()) {
-			    FileItemStream item = iter.next();
-			    String name = item.getFieldName();
-			    InputStream stream = item.openStream();
-	        	
-			    if (item.isFormField()) {
-			    	userMap.put(name, new String(Streams.asString(stream).getBytes(), "UTF-8"));
-			    } else {
-			    	// Image here.
-			    	userMap.put("profileImgName", item.getName());
-                    userMap.put(item.getFieldName(), IOUtils.toByteArray(stream));
-			    }
-			}
-			
-			if(userMap.get("email") != null && !((String) userMap.get("email")).isEmpty()) {
-        		String email = (String) userMap.get("email");
-        		
-        		MyEntityManager.getManager().clear();
-        		UserDAO userDAO = new UserDAO();
-        		User user = userDAO.findByEmail(email);
-        		if(user != null) {
-        			if(userMap.get("name") != null && !((String) userMap.get("name")).isEmpty()) {
-        				user.setName((String)userMap.get("name"));
-        			}
-        			if(userMap.get("password") != null && !((String) userMap.get("password")).isEmpty()) {
-        				user.setPassword((String)userMap.get("password"));
-        			}
-        			if(userMap.get("profileImgName") != null && userMap.get("profileImg") != null) {
-        				String url = MyCloudStorageService.uploadImage((String) userMap.get("profileImgName"), (byte[]) userMap.get("profileImg"));
-        				user.setProfileImg(url);
-        			}
-        			userDAO.update(user);
-        			sendResponse(response, MessageResult.createSuccessMessage("user.update.success", user));
-        			return;
-        		}
-        	}
-			
-		} catch (FileUploadException | IOException e) {
-			//e.printStackTrace();
-			sendResponse(response, MessageResult.createErrorMessage("internal.error", null));
-        	return;
-		}
-		sendResponse(response, MessageResult.createErrorMessage("user.update.error", null));
 	}
 	
 	/**
