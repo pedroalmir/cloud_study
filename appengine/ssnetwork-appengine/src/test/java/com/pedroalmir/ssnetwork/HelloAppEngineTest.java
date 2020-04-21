@@ -5,6 +5,8 @@ import java.io.IOException;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.pedroalmir.ssnetwork.controller.HelloAppEngine;
+
 public class HelloAppEngineTest {
 
   @Test

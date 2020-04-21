@@ -4,10 +4,12 @@
 package com.pedroalmir.ssnetwork.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,7 +20,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.amazonaws.services.dynamodbv2.document.Item;
+import org.apache.commons.fileupload.FileItemIterator;
+import org.apache.commons.fileupload.FileItemStream;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.fileupload.util.Streams;
+import org.apache.commons.io.IOUtils;
+
+import com.google.cloud.datastore.Entity;
 import com.pedroalmir.ssnetwork.controller.base.GenericServlet;
 import com.pedroalmir.ssnetwork.controller.result.MessageResult;
 import com.pedroalmir.ssnetwork.dao.UserDAO;
@@ -26,6 +35,7 @@ import com.pedroalmir.ssnetwork.dao.core.MyEntityManager;
 import com.pedroalmir.ssnetwork.model.Post;
 import com.pedroalmir.ssnetwork.model.User;
 import com.pedroalmir.ssnetwork.service.MyCloudDatastoreService;
+import com.pedroalmir.ssnetwork.service.MyCloudStorageService;
 
 /**
  * @author Pedro Almir
@@ -36,11 +46,6 @@ public class UserController extends GenericServlet {
 	/** Serial Version UID */
 	private static final long serialVersionUID = -2608338114748189594L;
 	
-	/** Upload settings */
-    private static final int MEMORY_THRESHOLD   = 1024 * 1024 * 3;  // 3MB
-    private static final int MAX_FILE_SIZE      = 1024 * 1024 * 40; // 40MB
-    private static final int MAX_REQUEST_SIZE   = 1024 * 1024 * 50; // 50MB
-    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	request.setCharacterEncoding("UTF-8");
@@ -85,8 +90,8 @@ public class UserController extends GenericServlet {
 	    			if(likes != null) {
 	    				p.setLikes(likes);
 	    				if(lUser != null && !nickname.equals(loggedUser)) {
-	    					Item item = cloudDatastoreService.findPostLike(p.getId().toString(), lUser.getEmail());
-	    					if(item != null) {
+	    					Entity entity = cloudDatastoreService.findPostLike(p.getId().toString(), lUser.getEmail());
+	    					if(entity != null) {
 	    						p.setLikedByLoggedUser(true);
 	    					}else {
 	    						p.setLikedByLoggedUser(false);
@@ -105,7 +110,8 @@ public class UserController extends GenericServlet {
 	    		return;
 	    	}
     	}catch(Exception ex) {
-    		sendResponse(response, MessageResult.createErrorMessage("internal.error", null));
+    		ex.printStackTrace();
+    		sendResponse(response, MessageResult.createErrorMessage("internal.error", ex.getMessage()));
     		return;
     	}
     	sendResponse(response, MessageResult.createErrorMessage("user.get.error", null));
@@ -113,14 +119,111 @@ public class UserController extends GenericServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+		try {
+			request.setCharacterEncoding("UTF-8");
+			
+			if (!ServletFileUpload.isMultipartContent(request)) {
+				sendResponse(response, MessageResult.createErrorMessage("internal.error", null));
+				return;
+			}
+			
+			// Map values to create user
+			Map<String, Object> userMap = new LinkedHashMap<>();
+			
+			ServletFileUpload upload = new ServletFileUpload();
+			FileItemIterator iter = upload.getItemIterator(request);
+			
+			while (iter.hasNext()) {
+			    FileItemStream item = iter.next();
+			    String name = item.getFieldName();
+			    InputStream stream = item.openStream();
+	        	
+			    if (item.isFormField()) {
+			    	userMap.put(name, new String(Streams.asString(stream).getBytes(), "UTF-8"));
+			    } else {
+			        // Image here.
+			    	userMap.put("profileImgName", item.getName());
+                    userMap.put(item.getFieldName(), IOUtils.toByteArray(stream));
+			    }
+			}
+			
+			MyEntityManager.getManager().clear();
+        	UserDAO userDAO = new UserDAO();
+        	
+        	// Validate form data
+        	if(validadeFormData(userDAO, userMap)) {
+        		User user = userDAO.save(userMap);
+        		sendResponse(response, MessageResult.createSuccessMessage("user.register.success", user));
+        		return;
+        	}
+			
+		} catch (FileUploadException | IOException e) {
+			e.printStackTrace();
+			sendResponse(response, MessageResult.createErrorMessage("internal.error", null));
+        	return;
+		}
         sendResponse(response, MessageResult.createErrorMessage("user.register.error", null));
 	}
 	
 	@Override
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-        sendResponse(response, MessageResult.createErrorMessage("user.update.error", null));
+		try {
+			request.setCharacterEncoding("UTF-8");
+			
+			if (!ServletFileUpload.isMultipartContent(request)) {
+				sendResponse(response, MessageResult.createErrorMessage("internal.error", null));
+				return;
+			}
+			
+			// Map values to create user
+			Map<String, Object> userMap = new LinkedHashMap<>();
+			
+			ServletFileUpload upload = new ServletFileUpload();
+			FileItemIterator iter = upload.getItemIterator(request);
+			
+			while (iter.hasNext()) {
+			    FileItemStream item = iter.next();
+			    String name = item.getFieldName();
+			    InputStream stream = item.openStream();
+	        	
+			    if (item.isFormField()) {
+			    	userMap.put(name, new String(Streams.asString(stream).getBytes(), "UTF-8"));
+			    } else {
+			    	// Image here.
+			    	userMap.put("profileImgName", item.getName());
+                    userMap.put(item.getFieldName(), IOUtils.toByteArray(stream));
+			    }
+			}
+			
+			if(userMap.get("email") != null && !((String) userMap.get("email")).isEmpty()) {
+        		String email = (String) userMap.get("email");
+        		
+        		MyEntityManager.getManager().clear();
+        		UserDAO userDAO = new UserDAO();
+        		User user = userDAO.findByEmail(email);
+        		if(user != null) {
+        			if(userMap.get("name") != null && !((String) userMap.get("name")).isEmpty()) {
+        				user.setName((String)userMap.get("name"));
+        			}
+        			if(userMap.get("password") != null && !((String) userMap.get("password")).isEmpty()) {
+        				user.setPassword((String)userMap.get("password"));
+        			}
+        			if(userMap.get("profileImgName") != null && userMap.get("profileImg") != null) {
+        				String url = MyCloudStorageService.uploadImage((String) userMap.get("profileImgName"), (byte[]) userMap.get("profileImg"));
+        				user.setProfileImg(url);
+        			}
+        			userDAO.update(user);
+        			sendResponse(response, MessageResult.createSuccessMessage("user.update.success", user));
+        			return;
+        		}
+        	}
+			
+		} catch (FileUploadException | IOException e) {
+			//e.printStackTrace();
+			sendResponse(response, MessageResult.createErrorMessage("internal.error", null));
+        	return;
+		}
+		sendResponse(response, MessageResult.createErrorMessage("user.update.error", null));
 	}
 	
 	/**

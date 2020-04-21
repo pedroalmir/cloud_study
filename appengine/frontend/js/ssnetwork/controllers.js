@@ -1,5 +1,5 @@
 var wait = false;
-var BACKEND_URL = "http://ssnetwork.appspot.com/";
+var BACKEND_URL = "http://ssnetwork.appspot.com";
 
 var eventRegister = {
 };
@@ -121,7 +121,7 @@ function loginBtnEvent(event){
 
     $.ajax({
         type: "POST",
-        url: BACKEND_URL + "ssnetwork/login",
+        url: BACKEND_URL + "/login",
         data: {
             'email'     : $('#loginInputEmail').val(),
             'password'  : $('#loginInputPassword').val()
@@ -174,7 +174,7 @@ function registerUserSubmitBtnEvent(event){
     $.ajax({
         type:        "POST",
         enctype:     "multipart/form-data",
-        url:         BACKEND_URL + "ssnetwork/user",
+        url:         BACKEND_URL + "/user",
         data:        data,
         processData: false,
         contentType: false,
@@ -313,6 +313,45 @@ function viewProfileController(params){
             $($('#dashLink').parent()[0]).removeClass('active');
         });
 
+        addEvent(route, '', 'now', function(){
+
+            var interval = getInterval(router);
+            if(interval){
+                $('#dateFilterInputID').daterangepicker({
+                    startDate: new Date(interval[0] + 'T00:00'),
+                    endDate: new Date(interval[1] + 'T00:00'),
+                    locale: {
+                        cancelLabel: 'Clear',
+                        format: 'YYYY-MM-DD',
+                        "separator": " to "
+                    }
+                });
+            }else{
+                $('#dateFilterInputID').daterangepicker({
+                    autoUpdateInput: false,
+                    locale: {
+                        cancelLabel: 'Clear',
+                        format: 'YYYY-MM-DD',
+                        "separator": " to "
+                    }
+                });
+            }
+    
+            $('#dateFilterInputID').on('apply.daterangepicker', function(ev, picker) {
+                console.log('aqui');
+                var begin = picker.startDate.format('YYYY-MM-DD');
+                var end = picker.endDate.format('YYYY-MM-DD');
+                $(this).val(begin + ' to ' + end);
+    
+                redirectTo(router._lastRouteResolved.url + "?begin=" + begin + "&end=" + end);
+                console.log();
+            });
+          
+            $('#dateFilterInputID').on('cancel.daterangepicker', function(ev, picker) {
+                $(this).val('');
+            });
+        });
+
         loadTemplate('home');
     }
 };
@@ -327,7 +366,7 @@ function processLikesAndUnline(event){
     
     $.ajax({
         type: "POST",
-         url:  BACKEND_URL + "ssnetwork/post/like",
+         url:  BACKEND_URL + "/post/like",
         data: {
             email : getLoggedUser().email, 
             post  : postID, 
@@ -372,7 +411,7 @@ function loadOtherProfileData(){
 
     $.ajax({
         type: "GET",
-        url: BACKEND_URL + "ssnetwork/user",
+        url: BACKEND_URL + "/user",
         data: dataForm,
         timeout: 600000,
         beforeSend: function() {
@@ -413,7 +452,7 @@ function loadUserData(){
 
     $.ajax({
         type: "GET",
-        url: BACKEND_URL + "ssnetwork/user",
+        url: BACKEND_URL + "/user",
         data: dataForm,
         timeout: 600000,
         beforeSend: function() {
@@ -445,7 +484,7 @@ function submitPostBtnEvent(event){
     $.ajax({
         type:        "POST",
         enctype:     "multipart/form-data",
-        url:         BACKEND_URL + "ssnetwork/post",
+        url:         BACKEND_URL + "/post",
         data:        data,
         processData: false,
         contentType: false,
@@ -497,7 +536,7 @@ function searchUsersBtnEvent(){
             search: function(query, callback){
                 $.ajax({
                     type: "GET",
-                    url: BACKEND_URL + "ssnetwork/find/user",
+                    url: BACKEND_URL + "/find/user",
                     data: {'nickname': query},
                     timeout: 600000,
                     success: function (result) {
@@ -536,7 +575,7 @@ function updateProfileBtnEvent(event){
     $.ajax({
         type:        "PUT",
         enctype:     "multipart/form-data",
-        url:         BACKEND_URL + "ssnetwork/user",
+        url:         BACKEND_URL + "/user",
         data:        data,
         processData: false,
         contentType: false,

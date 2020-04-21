@@ -1,29 +1,29 @@
 /** Check if is logged */
 function isLogged(){
-    return (localStorage.getItem('user') != null);
+    return (localStorage.getItem('userSSNetGAE') != null);
 };
 
 /** Login */
 function login(user){
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('userSSNetGAE', JSON.stringify(user));
 };
 
 /** Update Logged User */
 function updateLoggedUser(newUserData){
     if(isLogged()){
-        localStorage.setItem('user', JSON.stringify(newUserData));
+        localStorage.setItem('userSSNetGAE', JSON.stringify(newUserData));
     }
 };
 
 /** Logout */
 function logout(){
-    localStorage.removeItem('user');
+    localStorage.removeItem('userSSNetGAE');
 };
 
 /** Get logged user */
 function getLoggedUser(){
     if(isLogged()){
-        return JSON.parse(localStorage.getItem('user'));
+        return JSON.parse(localStorage.getItem('userSSNetGAE'));
     }
     return null;
 };

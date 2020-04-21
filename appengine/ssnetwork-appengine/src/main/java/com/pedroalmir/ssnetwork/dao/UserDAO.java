@@ -11,6 +11,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
+import com.google.appengine.api.utils.SystemProperty;
 import com.pedroalmir.ssnetwork.dao.core.AbstractDAO;
 import com.pedroalmir.ssnetwork.dao.core.MyEntityManager;
 import com.pedroalmir.ssnetwork.model.Post;
@@ -23,8 +24,8 @@ import com.pedroalmir.ssnetwork.service.MyCloudStorageService;
  */
 public class UserDAO extends AbstractDAO {
 	
-	public User includePost(Long userID, File image, String message) {
-		String url = MyCloudStorageService.uploadImage(image);
+	public User includePost(Long userID, String filename, byte[] image, String message) {
+		String url = MyCloudStorageService.uploadImage(filename, image);
 		Post post = new Post(message, url);
 		User user = this.findByID(userID);
 		user.getPosts().add(post);
@@ -50,7 +51,11 @@ public class UserDAO extends AbstractDAO {
 	 * @param userMap
 	 */
 	public User save(Map<String, Object> userMap) {
-		String url = MyCloudStorageService.uploadImage((File) userMap.get("profileImg"));
+		String url = "";
+		if (SystemProperty.environment.value() == SystemProperty.Environment.Value.Production) {
+			url = MyCloudStorageService.uploadImage((String) userMap.get("profileImgName"), (byte[]) userMap.get("profileImg"));
+		}
+		
 		return this.create((String) userMap.get("name"), (String) userMap.get("nickname"), 
 				(String) userMap.get("email"), (String) userMap.get("password"), url);
 	}
