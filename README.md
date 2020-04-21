@@ -16,6 +16,7 @@ Restrictions:
 Part 2: Using the application developed in Part 1, configure the LoadBalancing and Auto Scaling Services to provide elasticity.
 
 [SSNetwork (AWS) Link](http://ssnetwork.pedroalmir.com/aws/frontend)
+Update April 21, 2020: this application is offline to avoid costs on AWS.
 
 ### SSNetwork (GAE - PaaS)
 
