@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.pedroalmir.ssnetwork.service.MyCloudStorageService;
+
 @WebServlet(name = "HelloAppEngine", urlPatterns = { "/hello" })
 public class HelloAppEngine extends HttpServlet {
 
@@ -15,7 +17,12 @@ public class HelloAppEngine extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
+		
+		//UserDAO userDAO = new UserDAO();
+		//userDAO.save("Pedro Almir Martins de Oliveira", "pedroalmir", "p.pedroalmir8477@gmail.com", "password", null);
+		
+		MyCloudStorageService.uploadImage(null);
+		
 		response.setContentType("text/plain");
 		response.setCharacterEncoding("UTF-8");
 

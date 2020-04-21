@@ -1,5 +1,5 @@
 var wait = false;
-var BACKEND_URL = "http://ec2-18-229-202-214.sa-east-1.compute.amazonaws.com/";
+var BACKEND_URL = "http://ssnetwork.appspot.com/";
 
 var eventRegister = {
 };
