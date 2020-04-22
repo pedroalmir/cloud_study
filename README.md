@@ -2,7 +2,7 @@
 
 Repository used to store the practical works of the Cloud Development course by professors Fernando Trinta and Paulo Rego (MDCC / UFC) 2020.1.
 
-### SSNetwork (AWS - IaaS)
+### 1. SSNetwork (AWS - IaaS)
 
 Homework 1 was to implement an application similar to Instagram, in which the user can send photos to a small social network. The user data to be saved during registration are full name, nickname, password, password, and profile image.
 
@@ -19,7 +19,7 @@ Part 2: Using the application developed in Part 1, configure the LoadBalancing a
 
 Update April 21, 2020: this application is offline to avoid costs on AWS.
 
-### SSNetwork (GAE - PaaS)
+### 2. SSNetwork (GAE - PaaS)
 
 Homework 2 was to implement an application similar to Instagram, in which the user can send photos to a small social network. The user data to be saved during registration are full name, nickname, password, password, and profile image.
 
