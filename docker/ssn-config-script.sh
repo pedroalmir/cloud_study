@@ -37,8 +37,8 @@ docker build -f dockerfile-backend -t pedroalmir/tomcat:1.0 .
 docker build -f dockerfile-frontend -t pedroalmir/python:1.0 .
 
 echo "Executing docker compose..."
-docker-compose up -d
+docker-compose up -d --build
 # docker run --rm -d --name backend -p 80:8080 pedroalmir/mytomcat:0.1
-echo -e "\e[97mDone!"
+echo -e "\e[97mDone! Now, you can use the services!"
 
 

@@ -1,7 +1,7 @@
 version: '3.3'
 services:
   database:
-    image: mysql:5.7
+    image: mysql:5.7.16
     restart: always
     environment:
       MYSQL_DATABASE: 'ssn-docker-db'
@@ -21,7 +21,7 @@ services:
     ports:
       - '8080:8080'
       
-   frontend:
+  frontend:
     build:
       context: .
       dockerfile: dockerfile-frontend

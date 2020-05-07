@@ -24,7 +24,7 @@
     <persistence-unit name="production">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <properties>
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost/ssn-docker-db?useTimezone=true&amp;serverTimezone=America/Sao_Paulo" />
+            <property name="hibernate.connection.url" value="jdbc:mysql://18.229.202.214/ssn-docker-db?useTimezone=true&amp;serverTimezone=America/Sao_Paulo" />
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
             <property name="hibernate.connection.username" value="root" />
             <property name="hibernate.connection.password" value="docker30RDS" />
