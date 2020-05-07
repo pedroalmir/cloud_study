@@ -30,6 +30,8 @@ Restrictions:
 2. The photos must be stored using the Google Cloud Storage.
 3. Likes must be saved using Google Cloud Datastorage.
 
+Update May 7, 2020: this application is offline to avoid costs on App Engine.
+
 [SSNetwork (GAE) Link](http://ssnetwork.pedroalmir.com/appengine/frontend)
 
 ### 3. SSNetwork (AWS - Docker)
