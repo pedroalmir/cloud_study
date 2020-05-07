@@ -2,3 +2,5 @@
 /aws/ssnetwork/src/main/resources/META-INF/persistence.xml
 /appengine/ssnetwork-appengine/src/main/resources/META-INF/persistence.xml
 /appengine/ssnetwork-appengine/src/main/resources/META-INF/keys.cfg
+/docker/ssnetwork-docker/src/main/resources/META-INF/persistence.xml
+/docker/ssnetwork-docker/src/main/resources/META-INF/keys.cfg
