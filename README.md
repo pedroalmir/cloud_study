@@ -48,3 +48,5 @@ Restrictions:
 [SSNetwork-Docker Backend](http://18.229.202.214:8080/ssnetwork-docker)
 
 We created a script to automate the download of the code, generation of images and startup of the services. See the image below.
+
+![ssn-config-script.sh](https://raw.githubusercontent.com/pedroalmir/cloud_study/master/docker/ssn-config-script.png)
