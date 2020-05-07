@@ -31,7 +31,7 @@ import com.pedroalmir.ssnetwork.util.AwsUtils;
 public class MyDynamoService {
 	
 	private DynamoDB dynamoDB;
-	private final String TABLE_NAME = "ssnetwork_rlike";
+	private final String TABLE_NAME = "ssn-docker-likes";
 	
 	/** Constructor */
 	public MyDynamoService() {

@@ -26,7 +26,7 @@ import com.pedroalmir.ssnetwork.util.AwsUtils;
  */
 public class MyS3Service {
 	
-	private static final String BUCKET 	= "ssnetwork-bucket";
+	private static final String BUCKET 	= "ssn-docker-bucket";
 	
 	/**
 	 * @param user
