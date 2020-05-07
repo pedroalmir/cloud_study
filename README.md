@@ -57,6 +57,6 @@ Commands:
 1. wget https://raw.githubusercontent.com/pedroalmir/cloud_study/master/docker/ssn-config-script.sh
 2. \. ssn-config-script.sh
 
-The script will create the necessary folder structure, download the application code, then build the images using the docker files and, finally, start the services as defined by the docker-compose file. To stop them, run the command: $ docker-compose down. The image below shows the services running with the command $ docker ps.
+The script will create the necessary folder structure, download the application code, then build the images using the docker files and, finally, start the services as defined by the docker-compose file. To stop them, use the command: $ docker-compose down or $ docker-compose stop. The image below shows the services running with the command $ docker ps.
 
 ![running-services.png](https://raw.githubusercontent.com/pedroalmir/cloud_study/master/docker/running-services.png)
