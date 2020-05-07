@@ -13,4 +13,5 @@ echo "Downloading the backend war file..."
 wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=1-8d_AHJL2cOSY001YqQ6Z43lE3eXTCep' -O ssn-docker/volumes/backend/ssnetwork-docker.war > /dev/null 2>&1
 echo "Downloading and unzipping the frontend project..."
 wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=1yUy4sINTdj9UqYDiCu94WExU1nDB842C' -O ssn-docker/volumes/frontend.zip > /dev/null 2>&1
-unzip ssn-docker/volumes/frontend.zip -d ssn-docker/volumes/ > /dev/null 2>&1
+unzip -qq ssn-docker/volumes/frontend.zip -d ssn-docker/volumes/
+echo "Done!"
