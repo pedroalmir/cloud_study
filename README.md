@@ -2,6 +2,8 @@
 
 Repository used to store the practical works of the Cloud Development course by professors Fernando Trinta and Paulo Rego (MDCC / UFC) 2020.1.
 
+* * *
+
 ### 1. SSNetwork (AWS - IaaS)
 
 Homework 1 was to implement an application similar to Instagram, in which the user can send photos to a small social network. The user data to be saved during registration are full name, nickname, password, password, and profile image.
@@ -17,7 +19,9 @@ Part 2: Using the application developed in Part 1, configure the LoadBalancing a
 
 [SSNetwork (AWS) Link](http://ssnetwork.pedroalmir.com/aws/frontend)
 
-Update April 21, 2020: this application is offline to avoid costs on AWS.
+**Update April 21, 2020**: this application is offline to avoid costs on AWS.
+
+* * *
 
 ### 2. SSNetwork (GAE - PaaS)
 
@@ -31,6 +35,10 @@ Restrictions:
 3. Likes must be saved using Google Cloud Datastorage.
 
 [SSNetwork (GAE) Link](http://ssnetwork.pedroalmir.com/appengine/frontend)
+
+**Update May 7, 2020**: this application is offline to avoid costs on App Engine.
+
+* * *
 
 ### 3. SSNetwork (AWS - Docker)
 
@@ -54,9 +62,9 @@ We created a script to automate the download of the code, generation of images a
 To execute this script, you need to observe some requirements (docker, docker-compose and unzip packages installed) and run two commands:
 
 Commands:
-1. wget https://raw.githubusercontent.com/pedroalmir/cloud_study/master/docker/ssn-config-script.sh
-2. \. ssn-config-script.sh
+1. `$ wget https://raw.githubusercontent.com/pedroalmir/cloud_study/master/docker/ssn-config-script.sh`
+2. `$ \. ssn-config-script.sh`
 
-The script will create the necessary folder structure, download the application code, then build the images using the docker files and, finally, start the services as defined by the docker-compose file. To stop them, run the command: $ docker-compose down. The image below shows the services running with the command $ docker ps.
+The script will create the necessary folder structure, download the application code, then build the images using the docker files and, finally, start the services as defined by the docker-compose file. To stop them, use the command: `$ docker-compose down` or `$ docker-compose stop`. The image below shows the services running with the command `$ docker ps`.
 
 ![running-services.png](https://raw.githubusercontent.com/pedroalmir/cloud_study/master/docker/running-services.png)
