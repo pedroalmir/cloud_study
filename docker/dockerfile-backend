@@ -1,0 +1,3 @@
+FROM tomcat:7.0
+COPY backend/ /usr/local/tomcat/webapps/
+EXPOSE 8080
