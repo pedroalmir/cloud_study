@@ -7,7 +7,6 @@ import java.io.File;
 import java.util.List;
 
 import com.pedroalmir.ssnetwork.dao.UserDAO;
-import com.pedroalmir.ssnetwork.dao.core.MyEntityManager;
 import com.pedroalmir.ssnetwork.model.Post;
 import com.pedroalmir.ssnetwork.model.User;
 import com.pedroalmir.ssnetwork.service.MyDynamoService;
@@ -22,7 +21,7 @@ public class MainApp {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		MyEntityManager.changeToProduction();
+		//MyEntityManager.changeToProduction();
 		
 		UserDAO userDAO = new UserDAO();
 		
