@@ -31,14 +31,15 @@ wget -nv --no-check-certificate 'https://docs.google.com/uc?export=download&id=1
 unzip -qq ssn-docker/frontend.zip -d ssn-docker/
 rm ssn-docker/frontend.zip
 
-echo "Building docker images..."
-cd ssn-docker/
-docker build -f dockerfile-backend -t pedroalmir/tomcat:1.0 .
-docker build -f dockerfile-frontend -t pedroalmir/python:1.0 .
+#echo "Building docker images..."
+#docker build -f dockerfile-backend -t pedroalmir/tomcat:1.0 .
+#docker build -f dockerfile-frontend -t pedroalmir/python:1.0 .
 
+cd ssn-docker/
 echo "Executing docker compose..."
 docker-compose up -d --build
-# docker run --rm -d --name backend -p 80:8080 pedroalmir/mytomcat:1.0
+# Just for debug:
+# docker run --rm -it --name backend -p 8080:8080 ssn-docker_backend
 echo -e "\e[97mDone! Now, you can use the services!"
 
 

@@ -1,5 +1,5 @@
 var wait = false;
-var BACKEND_URL = "http://18.229.202.214:8080/ssnetwork-docker";
+var BACKEND_URL = "http://localhost:8081/ssnetwork-docker";
 
 var eventRegister = {
 };
@@ -573,9 +573,9 @@ function updateProfileBtnEvent(event){
     data.append('email', getLoggedUser().email);
 
     $.ajax({
-        type:        "POST",
+        type:        "PUT",
         enctype:     "multipart/form-data",
-        url:         BACKEND_URL + "/user/update",
+        url:         BACKEND_URL + "/user",
         data:        data,
         processData: false,
         contentType: false,

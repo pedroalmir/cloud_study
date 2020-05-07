@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
@@ -43,5 +44,14 @@ public abstract class GenericServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         out.print(gson.toJson(result));
         out.flush();
+	}
+	
+	@Override
+	protected void doOptions(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		response.addHeader("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
+		response.addHeader("Access-Control-Max-Age", "1728000");
+		response.addHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With, accept, origin");
+		response.addHeader("Access-Control-Allow-Credentials", "true");
 	}
 }
