@@ -12,7 +12,7 @@
 #    |_ frontend
 #       |_ [frontend dirs and files]
 
-echo "SSN-Config Script"
+echo -e "\e[92mSSN-Config Script"
 echo "Creating folder structure..." 
 sudo rm -rf ssn-docker
 mkdir -p ssn-docker/dababase
@@ -24,7 +24,7 @@ wget -nv https://raw.githubusercontent.com/pedroalmir/cloud_study/master/docker/
 wget -nv https://raw.githubusercontent.com/pedroalmir/cloud_study/master/docker/dockerfile-frontend -O ssn-docker/dockerfile-frontend
 
 echo "Downloading the backend war file..."
-wget -nv --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1-8d_AHJL2cOSY001YqQ6Z43lE3eXTCep' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1-8d_AHJL2cOSY001YqQ6Z43lE3eXTCep" -O ssnetwork-docker.war && rm -rf /tmp/cookies.txt
+wget -nv --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1-8d_AHJL2cOSY001YqQ6Z43lE3eXTCep' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1-8d_AHJL2cOSY001YqQ6Z43lE3eXTCep" -O ssn-docker/backend/ssnetwork-docker.war && rm -rf /tmp/cookies.txt
 
 echo "Downloading and unzipping the frontend project..."
 wget -nv --no-check-certificate 'https://docs.google.com/uc?export=download&id=1yUy4sINTdj9UqYDiCu94WExU1nDB842C' -O ssn-docker/frontend.zip
@@ -33,10 +33,12 @@ rm ssn-docker/frontend.zip
 
 echo "Building docker images..."
 cd ssn-docker/
-docker build -f dockerfile-backend -t pedroalmir/tomcat:0.1 .
-docker build -f dockerfile-frontend -t pedroalmir/python:0.1 .
+docker build -f dockerfile-backend -t pedroalmir/tomcat:1.0 .
+docker build -f dockerfile-frontend -t pedroalmir/python:1.0 .
 
+echo "Executing docker compose..."
+docker-compose up -d
 # docker run --rm -d --name backend -p 80:8080 pedroalmir/mytomcat:0.1
-echo "Done!"
+echo -e "\e[97mDone!"
 
 

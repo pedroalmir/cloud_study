@@ -11,28 +11,20 @@ services:
     expose:
       - '3306'
     volumes:
-      - /home/ec2-user/ssnetwork-docker/volumes/mysql:/var/lib/mysql
+      - /home/ubuntu/ssn-docker/dababase:/var/lib/mysql
   
   backend:
-    image: tomcat:7.0
+    build:
+      context: .
+      dockerfile: dockerfile-backend
     restart: always
-    environment:
-      TOMCAT_USERNAME: 'root'
-      TOMCAT_PASSWORD: 'root'
     ports:
       - '8080:8080'
-    expose:
-      - '8080'
-    volumes:
-      - /home/ec2-user/ssnetwork-docker/volumes/tomcat7/ssnetwork.war:/usr/local/tomcat/webapps/ssnetwork.war
       
    frontend:
-    image: python:3.8
+    build:
+      context: .
+      dockerfile: dockerfile-frontend
     restart: always
-    command: python3 -m http.server 5000
     ports:
-      - '5000:5000'
-    expose:
-      - '5000'
-    volumes:
-      - /home/ec2-user/ssnetwork-docker/volumes/frontend:.
+      - '80:8000'
