@@ -47,6 +47,10 @@ Restrictions:
 [SSNetwork-Docker Frontend](http://http://18.229.202.214)
 [SSNetwork-Docker Backend](http://18.229.202.214:8080/ssnetwork-docker)
 
-We created a script to automate the download of the code, generation of images and startup of the services. See the image below.
+We created a script to automate the download of the code, generation of images and startup of the services (see the image below). To execute this script, you need to observe some requirements (docker, docker-compose and unzip packages installed) and run two commands:
+
+Commands:
+1. wget https://raw.githubusercontent.com/pedroalmir/cloud_study/master/docker/ssn-config-script.sh
+2. \. ssn-config-script.sh
 
 ![ssn-config-script.sh](https://raw.githubusercontent.com/pedroalmir/cloud_study/master/docker/ssn-config-script.png)
