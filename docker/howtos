@@ -1,0 +1,18 @@
+HowTo: Docker in EC2
+  [Install Docker]
+	$ sudo yum update -y
+	$ sudo yum install -y docker
+	$ sudo service docker start
+	$ sudo usermod -a -G docker ec2-user
+	## Log out and log back in again to pick up the new docker group permissions. ##
+	$ docker info
+  [Instal Compose]
+	$ sudo curl -L "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+	$ sudo chmod +x /usr/local/bin/docker-compose
+	$ docker-compose --version
+	
+  [Links]
+	- https://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html
+	- https://hub.docker.com/_/tomcat?tab=description
+	- https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
+	- https://docs.docker.com/compose/compose-file/#/build
