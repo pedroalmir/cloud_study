@@ -5,7 +5,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
          
-	<display-name>Archetype Created Web Application</display-name>
+	<display-name>SSNetwork Docker Backend Application</display-name>
+	
+	<servlet>
+		<servlet-name>SSNetworkStartup</servlet-name>
+		<servlet-class>com.pedroalmir.ssnetwork.controller.handler.SSNetworkStartup</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
 
 	<filter>
 		<filter-name>CorsFilter</filter-name>

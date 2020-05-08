@@ -1,5 +1,5 @@
 var wait = false;
-var BACKEND_URL = "http://localhost:8081/ssnetwork-docker";
+var BACKEND_URL = "http://18.229.202.214:8080/ssnetwork-docker";
 
 var eventRegister = {
 };
