@@ -52,7 +52,7 @@ Restrictions:
 5. Use the MySQL docker image to execute the relational database.
 6. Use docker-compose to configure services to run and start: DB, backend and frontend.
 
-[SSNetwork-Docker Frontend](http://http://18.229.202.214)
+[SSNetwork-Docker Frontend](http://18.229.202.214)
 
 [SSNetwork-Docker Backend](http://18.229.202.214:8080/ssnetwork-docker)
 
