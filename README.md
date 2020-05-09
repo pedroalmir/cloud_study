@@ -53,6 +53,7 @@ Restrictions:
 6. Use docker-compose to configure services to run and start: DB, backend and frontend.
 
 [SSNetwork-Docker Frontend](http://http://18.229.202.214)
+
 [SSNetwork-Docker Backend](http://18.229.202.214:8080/ssnetwork-docker)
 
 We created a script to automate the download of the code, generation of images and startup of the services (see the image below). 
