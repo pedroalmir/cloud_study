@@ -69,3 +69,5 @@ Commands:
 The script will create the necessary folder structure, download the application code, then build the images using the docker files and, finally, start the services as defined by the docker-compose file. To stop them, use the command: `$ docker-compose down` or `$ docker-compose stop`. The image below shows the services running with the command `$ docker ps`.
 
 ![running-services.png](https://raw.githubusercontent.com/pedroalmir/cloud_study/master/docker/images/running-services.png)
+
+**Update May 19, 2020**: this application is offline to avoid costs on AWS.
