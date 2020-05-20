@@ -52,7 +52,8 @@ Restrictions:
 5. Use the MySQL docker image to execute the relational database.
 6. Use docker-compose to configure services to run and start: DB, backend and frontend.
 
-[SSNetwork-Docker Frontend](http://http://18.229.202.214)
+[SSNetwork-Docker Frontend](http://18.229.202.214)
+
 [SSNetwork-Docker Backend](http://18.229.202.214:8080/ssnetwork-docker)
 
 We created a script to automate the download of the code, generation of images and startup of the services (see the image below). 
@@ -68,3 +69,5 @@ Commands:
 The script will create the necessary folder structure, download the application code, then build the images using the docker files and, finally, start the services as defined by the docker-compose file. To stop them, use the command: `$ docker-compose down` or `$ docker-compose stop`. The image below shows the services running with the command `$ docker ps`.
 
 ![running-services.png](https://raw.githubusercontent.com/pedroalmir/cloud_study/master/docker/images/running-services.png)
+
+**Update May 19, 2020**: this application is offline to avoid costs on AWS.
