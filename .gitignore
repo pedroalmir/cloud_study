@@ -5,4 +5,4 @@
 /docker/ssnetwork-docker/src/main/resources/META-INF/persistence.xml
 /docker/ssnetwork-docker/src/main/resources/META-INF/keys.cfg
 /hadoop/datasets/
-/hadoop/tests/
+/hadoop/jars/

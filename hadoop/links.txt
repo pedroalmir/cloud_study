@@ -1,0 +1,4 @@
+Helpers:
+	https://kontext.tech/column/hadoop/377/latest-hadoop-321-installation-on-windows-10-step-by-step-guide
+	https://github.com/cdarlint/winutils
+	https://www.codeproject.com/Articles/757934/Apache-Hadoop-for-Windows-Platform

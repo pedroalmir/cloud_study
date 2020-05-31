@@ -1,0 +1,60 @@
+How to build:
+	[Remember to change to false MyEnv.isDevelopment before the build process]
+	[Update the project version in pom.xml]
+	$ run mvn package
+	[Copy the final JAR (tweets-reviews-counter-<version>.jar) to cloud_study\hadoop\jars]
+
+How to execute in Hadoop:
+	[Go to D:\dev\docker\docker-hadoop]
+	$ docker-compose up -d --build
+	$ [just first time] docker cp D:\dev\github\pedroalmir\cloud_study\hadoop\datasets\books-ds <namenode_ID>:/
+	$ [just first time] docker cp D:\dev\github\pedroalmir\cloud_study\hadoop\datasets\reviews-ds <namenode_ID>:/
+	$ [just first time] docker cp D:\dev\github\pedroalmir\cloud_study\hadoop\datasets\tweets-ds <namenode_ID>:/
+	$ [whenever there is a new JAR version] docker cp D:\dev\github\pedroalmir\cloud_study\hadoop\jars <namenode_ID>:/
+		  
+	$ docker exec -it namenode bash
+	  $ [just first time] hadoop fs -mkdir -p books-ds
+	  $ [just first time] hadoop fs -mkdir -p tweets-ds
+	  $ [just first time] hadoop fs -mkdir -p reviews-ds
+	  
+	  $ [just first time] hdfs dfs -put ./books-ds/* books-ds
+	  $ [just first time] hdfs dfs -put ./tweets-ds/* tweets-ds
+	  $ [just first time] hdfs dfs -put ./reviews-ds/* reviews-ds
+	  
+	  [Run the jobs and be patient]
+	  $ hadoop jar jars/tweets-reviews-counter-1.1.0.jar br.ufc.great.hadoop.text.books.WordLength books-ds output-q1ab-word-length-average
+	  
+	  $ hadoop jar jars/tweets-reviews-counter-1.1.0.jar br.ufc.great.hadoop.tweets.eleicoes.HashTagCountByPeriod tweets-ds output-q2a-hashtag-count-by-period
+	  $ hadoop jar jars/tweets-reviews-counter-1.1.0.jar br.ufc.great.hadoop.tweets.eleicoes.HashTagCountByDay tweets-ds output-q2b-hashtag-count-by-day
+	  $ hadoop jar jars/tweets-reviews-counter-1.1.0.jar br.ufc.great.hadoop.tweets.eleicoes.TweetsCountByHour tweets-ds output-q2c-tweets-count-by-hour
+	  $ hadoop jar jars/tweets-reviews-counter-1.1.0.jar br.ufc.great.hadoop.tweets.eleicoes.SentenceCountByDilma tweets-ds output-q2d-sentence-count-by-dilma
+	  $ hadoop jar jars/tweets-reviews-counter-1.1.0.jar br.ufc.great.hadoop.tweets.eleicoes.SentenceCountByAecio tweets-ds output-q2e-sentence-count-by-aecio
+	  
+	  $ hadoop jar jars/tweets-reviews-counter-1.1.0.jar br.ufc.great.hadoop.reviews.eiffel.WordCount reviews-ds output-q3a-word-count
+	  $ hadoop jar jars/tweets-reviews-counter-1.1.0.jar br.ufc.great.hadoop.reviews.eiffel.SentenceCount reviews-ds output-q3b-sentence-count
+	  $ hadoop jar jars/tweets-reviews-counter-1.1.0.jar br.ufc.great.hadoop.reviews.eiffel.TopicModeling reviews-ds output-q3c-topic-modeling
+	  $ hadoop jar jars/tweets-reviews-counter-1.1.0.jar br.ufc.great.hadoop.reviews.eiffel.TemporalDistribution reviews-ds output-q3d-temporal-distribution
+	  
+	  [Copy all results from hadoop hdfs to a container folder]
+	  $ mkdir results
+	  $ hdfs dfs -copyToLocal output-q1ab-word-length-average/part-r-00000 /results/result-q1ab-word-length-average
+	  $ hdfs dfs -copyToLocal output-q2a-hashtag-count-by-period/part-r-00000 /results/result-q2a-hashtag-count-by-period
+	  $ hdfs dfs -copyToLocal output-q2b-hashtag-count-by-day/part-r-00000 /results/result-q2b-hashtag-count-by-day
+	  $ hdfs dfs -copyToLocal output-q2c-tweets-count-by-hour/part-r-00000 /results/result-q2c-tweets-count-by-hour
+	  $ hdfs dfs -copyToLocal output-q2d-sentence-count-by-dilma/part-r-00000 /results/result-q2d-sentence-count-by-dilma
+	  $ hdfs dfs -copyToLocal output-q2e-sentence-count-by-aecio/part-r-00000 /results/result-q2e-sentence-count-by-aecio
+	  $ hdfs dfs -copyToLocal output-q3a-word-count/part-r-00000 /results/result-q3a-word-count
+	  $ hdfs dfs -copyToLocal output-q3b-sentence-count/part-r-00000 /results/result-q3b-sentence-count
+	  $ hdfs dfs -copyToLocal output-q3c-topic-modeling/part-r-00000 /results/result-q3c-topic-modeling
+	  $ hdfs dfs -copyToLocal output-q3d-temporal-distribution/part-r-00000 /results/result-q3d-temporal-distribution
+	  
+	[cmd.exe]
+	[Copy all results from container to local machine]
+	$ docker cp <namenode_ID>:/results D:\dev\github\pedroalmir\cloud_study\hadoop\results
+	
+	[Go to D:\dev\docker\docker-hadoop]
+	$ docker-compose down
+	
+>> If necessary, you can use $ hadoop job -list to get all jobs and $ hadoop job -kill <job_ID> to kill a problematic job.
+	  
+	  

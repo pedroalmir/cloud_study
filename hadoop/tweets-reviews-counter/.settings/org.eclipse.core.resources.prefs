@@ -1,0 +1,8 @@
+eclipse.preferences.version=1
+encoding//src/main/java=UTF-8
+encoding//src/main/java/br/ufc/great/hadoop/commons/lda/Corpus.java=UTF-8
+encoding//src/main/java/br/ufc/great/hadoop/commons/lda/LdaGibbsSampler.java=UTF-8
+encoding//src/main/java/br/ufc/great/hadoop/commons/lda/LdaUtil.java=UTF-8
+encoding//src/main/java/br/ufc/great/hadoop/commons/lda/Vocabulary.java=UTF-8
+encoding//src/test/java=UTF-8
+encoding/<project>=UTF-8
