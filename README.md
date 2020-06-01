@@ -71,3 +71,12 @@ The script will create the necessary folder structure, download the application 
 ![running-services.png](https://raw.githubusercontent.com/pedroalmir/cloud_study/master/docker/images/running-services.png)
 
 **Update May 19, 2020**: this application is offline to avoid costs on AWS.
+
+* * *
+
+### 4. Hadoop
+
+For this homework, it was required to i) deploy a hadoop cluster with docker containers, and ii) process a set of Datasets, following the specification present in [Trabalho_Hadoop_2019.pdf](https://raw.githubusercontent.com/pedroalmir/cloud_study/master/hadoop/Trabalho_Hadoop_2019.pdf).
+
+
+As a result, we present the following report: [RelatorioAtividade_Hadoop.pdf](https://raw.githubusercontent.com/pedroalmir/cloud_study/master/hadoop/RelatorioAtividade_Hadoop.pdf).
