@@ -29,7 +29,6 @@ public class TweetsCountByHour {
 	}
 	
 	public static class MyReducer extends Reducer<Text, IntWritable, Text, NullWritable> {
-
 		public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
 			int total = 0;
 			for (IntWritable val : values) {

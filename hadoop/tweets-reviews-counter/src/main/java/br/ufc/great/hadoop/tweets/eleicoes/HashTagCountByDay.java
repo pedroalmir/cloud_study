@@ -33,7 +33,6 @@ public class HashTagCountByDay {
 	}
 	
 	public static class MyReducer extends Reducer<Text, Text, Text, NullWritable> {
-
 		public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
 			HashMap<String, Integer> map = new HashMap<>();
 			for (Text val : values) {

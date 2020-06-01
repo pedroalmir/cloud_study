@@ -38,7 +38,6 @@ public class HashTagCountByPeriod {
 	}
 	
 	public static class MyReducer extends Reducer<Text, MapWritable, Text, NullWritable> {
-
 		public void reduce(Text key, Iterable<MapWritable> values, Context context) throws IOException, InterruptedException {
 			int morning = 0, afternoon = 0, night = 0;
 			for (MapWritable val : values) {
