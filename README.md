@@ -80,3 +80,16 @@ For this homework, it was required to i) deploy a hadoop cluster with docker con
 
 
 As a result, we present the following report: [RelatorioAtividade_Hadoop.pdf](https://raw.githubusercontent.com/pedroalmir/cloud_study/master/hadoop/RelatorioAtividade_Hadoop.pdf).
+
+* * *
+
+### 5. Software Engineering for Cloud
+
+For the last assignment, it was requested a presentation related to Cloud Computing. I have chosen talking about Software Engineering for Cloud: processes, architectures, and patterns. Below, it is possible to access the video and slides of this presentation. I hope you enjoy it.
+
+[Youtube Video](https://www.youtube.com/watch?v=a9M5fs_kFgU)
+[Slides in PDF] (https://drive.google.com/file/d/17s5r1wgBeehkuJPB99575ZT9-FR_GdBQ/view?usp=sharing)
+
+* * *
+
+Finally, I want to thanks the professors Fernando Trinta e Paulo Rego regarding the knowledge shared in this course.
